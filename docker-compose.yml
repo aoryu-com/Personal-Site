@@ -2,7 +2,7 @@ services:
   nginx:
     image: nginx:stable-alpine
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/default.conf:ro
       - ./.output/public:/usr/share/nginx/html
     environment:
       - VIRTUAL_HOST=bdp.blue,www.bdp.blue
