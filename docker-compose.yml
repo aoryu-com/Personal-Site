@@ -15,13 +15,7 @@ services:
     command: [nginx-debug, '-g', 'daemon off;']
 
 
-  node-builder:
-    image: node:lts-slim
-    volumes:
-      - ./:./
 
-    command: >
-        npm install && nuxt generate
 
 
 
