@@ -1,10 +1,10 @@
 <script setup lang="ts">
-
+import headerBar from '@/components/headerBar.vue'
 </script>
 
 <template>
-  <div>
-
+  <header-bar/>
+  <div class=" heigh">
   </div>
 </template>
 
