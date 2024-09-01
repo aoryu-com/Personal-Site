@@ -1,9 +1,7 @@
 services:
   nginx:
-
     build:
       context: ../..
-      dockerfile: .
     image: bdp:latest
 
     environment:
