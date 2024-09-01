@@ -1,9 +1,11 @@
 services:
   nginx:
-    image: nginx:stable-alpine
-    volumes:
-      - ./nginx.conf:/etc/nginx/default.conf:ro
-      - ./.output/public:/usr/share/nginx/html
+
+    build:
+      context: ../..
+      dockerfile: ./Dockerfile
+    image: bdp:latest
+
     environment:
       - VIRTUAL_HOST=bdp.blue,www.bdp.blue
       - VIRTUAL_PORTS=80
@@ -12,12 +14,6 @@ services:
       - 80
     networks:
       - frontend
-    command: [nginx-debug, '-g', 'daemon off;']
-
-
-
-
-
 
 
 networks:
