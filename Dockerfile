@@ -1,13 +1,31 @@
-FROM node:lts-slim
+FROM node:lts-slim as base
 
-WORKDIR /app
+ARG PORT=3000
 
-COPY package*.json ./
+ENV NODE_ENV=production
 
-RUN npm install
+WORKDIR /src
 
-COPY . .
+# Build
+FROM base as build
 
-EXPOSE 3000
-RUN npm run build
-CMD [ "node", ".output/server/index.mjs" ]
+COPY --link package.json package-lock.json ./
+RUN npm install --production=false
+
+COPY --link . .
+
+RUN npm run generate
+RUN npm prune
+
+
+# Run
+FROM nginx:stable-alpine
+
+ENV PORT=$PORT
+
+COPY --from=build /src/.output /src/.output
+COPY ./nginx.conf /etc/nginx/nginx.conf
+
+EXPOSE $PORT
+
+CMD ["nginx-debug", "-g", "daemon off;"]
