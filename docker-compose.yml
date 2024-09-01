@@ -1,17 +1,20 @@
 services:
   nginx:
+
     build:
       context: ../..
       dockerfile: ./Dockerfile
     image: bdp:latest
+
     environment:
       - VIRTUAL_HOST=bdp.blue,www.bdp.blue
       - VIRTUAL_PORTS=80
     restart: unless-stopped
-    ports:
+    expose:
       - 80
     networks:
       - frontend
+
 
 networks:
   frontend:
