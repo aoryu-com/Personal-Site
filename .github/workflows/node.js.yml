@@ -1,0 +1,37 @@
+name: Build and Deploy Nuxt App
+
+on:
+  push:
+    branches:
+      - production  # Change to match your main branch
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: lts
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm install
+
+      - name: Build Nuxt App
+        run: npm run generate
+
+      - name: Deploy to Another Branch
+        run: |
+          git config --global user.email "github-actions@github.com"
+          git config --global user.name "GitHub Actions"
+          git checkout --orphan build-branch
+          git rm -rf .
+          mv .output/public/* .  # Adjust for your Nuxt output path
+          git add .
+          git commit -m "Deploy built Nuxt app"
+          git push origin build-branch --force

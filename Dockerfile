@@ -23,7 +23,7 @@ FROM nginx:stable-alpine
 
 ENV PORT=$PORT
 
-COPY --from=build /src/.output /src/.output
+COPY --from=build /src/.output/public/ /usr/share/nginx/html/
 COPY ./nginx.conf /etc/nginx/nginx.conf
 
 EXPOSE $PORT
