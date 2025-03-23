@@ -10,6 +10,11 @@ export default defineNuxtConfig({
       'Major Mono Display': true,
       'Kode Mono': true,
     }
+  },
+  nitro: {
+    prerender: {
+      routes: ["/.well-known/webfinger"]
+    }
   }
 
 })
