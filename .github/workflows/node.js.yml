@@ -3,11 +3,13 @@ name: Build and Push Nuxt App
 on:
   push:
     branches:
-      - main
+      - production
 
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write  # Allows pushing changes
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
